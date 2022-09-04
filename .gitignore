@@ -1,0 +1,17 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+.idea
+.tmp
+
+# Ignore meta-data file of Finder application in MacOS
+.DS_Store
+
+# Ignore Gradle build output directory
+build
+caches
+daemon
+gradle
+jdks
+kotlin-profile
+native
+wrapper
