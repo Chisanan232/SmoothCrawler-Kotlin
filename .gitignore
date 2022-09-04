@@ -10,8 +10,7 @@
 build
 caches
 daemon
-gradle
 jdks
 kotlin-profile
 native
-wrapper
+./wrapper
