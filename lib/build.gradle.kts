@@ -73,8 +73,8 @@ kover {
     }
 
     xmlReport {
-        onCheck.set(false) // true to run koverXmlReport task during the execution of the check task
-        reportFile.set(layout.buildDirectory.file("$buildDir/reports/kover/result.xml")) // change report file name
+        onCheck.set(true) // true to run koverXmlReport task during the execution of the check task
+        reportFile.set(layout.buildDirectory.file("$buildDir/reports/kover/xml/result.xml")) // change report file name
         overrideFilters {
             classes { // override common class filter
                 includes += "smoothcrawler" // override class inclusion rules
@@ -85,7 +85,7 @@ kover {
 
     htmlReport {
         onCheck.set(false) // true to run koverHtmlReport task during the execution of the check task
-        reportDir.set(layout.buildDirectory.dir("$buildDir/reports/kover/html-result")) // change report directory
+        reportDir.set(layout.buildDirectory.dir("$buildDir/reports/kover/html/html-result")) // change report directory
         overrideFilters {
             classes { // override common class filter
                 includes += "smoothcrawler" // class inclusion rules
