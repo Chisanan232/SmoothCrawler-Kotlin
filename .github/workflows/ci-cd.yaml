@@ -49,15 +49,6 @@ jobs:
       - name: Build the source code and run test
         run: ./gradlew --no-build-cache build -x koverReport --stacktrace --console 'verbose'
 
-      - name: For debug in directory './lib/build/reports/'
-        run: ls -la ./lib/build/reports/
-
-      - name: For debug in './lib/build/reports/kover/'
-        run: ls -la ./lib/build/reports/kover/
-
-      - name: For debug in './lib/build/reports/kover/'
-        run: ls -la ./lib/build/reports/kover/xml/
-
       - name: Rename the file name
         run: mv ./lib/build/reports/kover/xml/result.xml ./lib/build/reports/kover/xml/coverage_unit-test.xml
 
