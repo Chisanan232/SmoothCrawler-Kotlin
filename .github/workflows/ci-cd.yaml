@@ -55,8 +55,11 @@ jobs:
       - name: For debug in './lib/build/reports/kover/'
         run: ls -la ./lib/build/reports/kover/
 
+      - name: For debug in './lib/build/reports/kover/'
+        run: ls -la ./lib/build/reports/kover/xml/
+
       - name: Rename the file name
-        run: mv ./lib/build/reports/kover/result.xml ./lib/build/reports/kover/coverage_unit-test.xml
+        run: mv ./lib/build/reports/kover/xml/result.xml ./lib/build/reports/kover/xml/coverage_unit-test.xml
 
       - name: Upload testing code coverage file
         uses: actions/upload-artifact@v3
