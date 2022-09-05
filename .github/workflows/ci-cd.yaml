@@ -52,6 +52,13 @@ jobs:
       - name: Rename the file name
         run: mv ./lib/build/reports/kover/xml/result.xml ./lib/build/reports/kover/xml/coverage_unit-test.xml
 
+      - name: Upload testing code coverage file (a bug of template GitHub Action workflow)
+        uses: actions/upload-artifact@v3
+        with:
+          name: test_coverage_report
+          path: ./lib/build/reports/kover/xml/coverage_unit-test.xml
+          if-no-files-found: error
+
       - name: Upload testing code coverage file
         uses: actions/upload-artifact@v3
         with:
