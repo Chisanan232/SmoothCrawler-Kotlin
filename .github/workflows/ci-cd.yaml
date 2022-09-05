@@ -44,19 +44,19 @@ jobs:
           cache: gradle
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x ./gradlew
 
-      - name: Grant execute permission for gradlew
-        run: gradlew --no-build-cache build -x koverReport --stacktrace --console 'verbose'
+      - name: Build the source code and run test
+        run: ./gradlew --no-build-cache build -x koverReport --stacktrace --console 'verbose'
 
       - name: Rename the file name
-        run: mv lib/build/reports/kover/xml/report.xml lib/build/reports/kover/xml/coverage_unit-test.xml
+        run: mv ./lib/build/reports/kover/xml/report.xml ./lib/build/reports/kover/xml/coverage_unit-test.xml
 
       - name: Upload testing code coverage file
         uses: actions/upload-artifact@v3
         with:
           name: test_coverage_xml_report
-          path: lib/build/reports/kover/xml/coverage_unit-test.xml
+          path: ./lib/build/reports/kover/xml/coverage_unit-test.xml
           if-no-files-found: error
 
 
