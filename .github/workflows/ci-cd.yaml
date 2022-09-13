@@ -1,0 +1,92 @@
+name: SmoothCrawler-Kotlin CI
+
+on:
+  push:
+    branches:
+      - "master"
+      - "release"
+      - "release-**"
+      - "release/**"
+      - "develop"
+    paths-ignore:
+      - ".gitignore"
+      - ".gitattributes"
+      - ".gitcommitrules"
+      - "LICENSE"
+      - "README.md"
+
+  pull_request:
+    branches:
+      - "master"
+      - "release"
+      - "release-**"
+      - "release/**"
+      - "develop"
+    paths-ignore:
+      - ".gitignore"
+      - ".gitattributes"
+      - ".gitcommitrules"
+      - "LICENSE"
+      - "README.md"
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone project from GitHub
+        uses: actions/checkout@v2
+
+      - name: Build Java runtime environment
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build the source code and run test
+        run: ./gradlew --no-build-cache build -x koverReport --stacktrace --console 'verbose'
+
+      - name: Rename the file name
+        run: mv ./lib/build/reports/kover/xml/result.xml ./lib/build/reports/kover/xml/coverage_unit-test.xml
+
+      - name: Upload testing code coverage file (a bug of template GitHub Action workflow)
+        uses: actions/upload-artifact@v3
+        with:
+          name: test_coverage_report
+          path: ./lib/build/reports/kover/xml/coverage_unit-test.xml
+          if-no-files-found: error
+
+      - name: Upload testing code coverage file
+        uses: actions/upload-artifact@v3
+        with:
+          name: test_coverage_xml_report
+          path: ./lib/build/reports/kover/xml/coverage_unit-test.xml
+          if-no-files-found: error
+
+
+  codecov_finish:
+#    name: Organize and generate the testing report and upload it to Codecov
+    needs: build_and_test
+    uses: Chisanan232/GitHub-Action-Template-Python/.github/workflows/upload_test_cov_report.yaml@v2
+    secrets:
+      codecov_token: ${{ secrets.CODECOV_TOKEN }}
+    with:
+      test_type: unit-test
+      upload-to-codecov: true
+      codecov_flags: unit  # Required if 'upload-to-codecov' is true
+      codecov_name: smoothcrawler-kotlin  # Required if 'upload-to-codecov' is true
+
+
+  codacy_finish:
+#    name: Upload test report to Codacy to analyse and record code quality
+    needs: build_and_test
+    uses: Chisanan232/GitHub-Action-Template-Python/.github/workflows/upload_test_cov_report.yaml@v2
+    secrets:
+      codacy_token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+    with:
+      test_type: unit-test
+      upload-to-codacy: true
+
