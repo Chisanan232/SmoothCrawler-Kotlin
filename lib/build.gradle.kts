@@ -68,13 +68,15 @@ dependencies {
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.10")
 }
 
+val smoothcrawlerPackage = "org.smoothcrawler"
+
 kover {
     isDisabled.set(false) // true to disable instrumentation and all Kover tasks in this project
 //    engine.set(kotlinx.kover.api.DefaultIntellijEngine) // change Coverage Engine
     engine.set(JacocoEngine("0.8.8")) // change Coverage Engine
     filters { // common filters for all default Kover tasks
         classes { // common class filter for all default Kover tasks
-            includes += "org.smoothcrawler" // class inclusion rules
+            includes += smoothcrawlerPackage // class inclusion rules
 //            excludes += listOf("com.example.subpackage.*") // class exclusion rules
         }
     }
@@ -88,7 +90,7 @@ kover {
         reportFile.set(layout.buildDirectory.file("$buildDir/reports/kover/xml/result.xml")) // change report file name
         overrideFilters {
             classes { // override common class filter
-                includes += "org.smoothcrawler" // override class inclusion rules
+                includes += smoothcrawlerPackage // override class inclusion rules
 //                excludes += listOf("com.example2.subpackage.*") // override class exclusion rules
             }
         }
@@ -99,7 +101,7 @@ kover {
         reportDir.set(layout.buildDirectory.dir("$buildDir/reports/kover/html/html-result")) // change report directory
         overrideFilters {
             classes { // override common class filter
-                includes += "org.smoothcrawler" // class inclusion rules
+                includes += smoothcrawlerPackage // class inclusion rules
 //                excludes += listOf("com.example2.subpackage.*") // override class exclusion rules
             }
         }
@@ -113,8 +115,8 @@ kover {
             target = kotlinx.kover.api.VerificationTarget.ALL // specify by which entity the code for separate coverage evaluation will be grouped
 
             overrideClassFilter { // override common class filter
-                includes += "com.example.verify.*" // override class inclusion rules
-                excludes += listOf("com.example.verify.subpackage.*") // override class exclusion rules
+                includes += smoothcrawlerPackage // override class inclusion rules
+//                excludes += listOf("com.example.verify.subpackage.*") // override class exclusion rules
             }
 
             bound { // add rule bound
