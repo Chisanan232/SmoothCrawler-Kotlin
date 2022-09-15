@@ -8,12 +8,16 @@
  */
 
 import kotlinx.kover.api.JacocoEngine
+import kotlin.collections.listOf
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     kotlin("jvm") version "1.7.10"
 
+    // Apply Kover to activate feature about testing coverage
     id("org.jetbrains.kotlinx.kover") version "0.6.0-Beta"
+    // Apply Dokka to activate feature about documentation generation
+    id("org.jetbrains.dokka") version "1.7.10"
 
     // Apply the java-library plugin for API and implementation separation.
     java
@@ -27,11 +31,15 @@ repositories {
 
 sourceSets {
     main {
-        java.srcDir("smoothcrawler/main/kotlin")
+        java.srcDir(listOf(
+            "smoothcrawler/main/kotlin",
+        ))
     }
 
     test {
-        java.srcDir("smoothcrawler/test/kotlin")
+        java.srcDir(listOf(
+            "smoothcrawler/test/kotlin",
+        ))
     }
 }
 
@@ -55,7 +63,12 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.23.1")
     testImplementation("io.mockk:mockk:1.12.7")
     testImplementation("org.jetbrains.kotlinx:kover:0.6.0-Beta")
+
+    // For Kotlin documentation generation
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.10")
 }
+
+val smoothcrawlerPackage = "org.smoothcrawler"
 
 kover {
     isDisabled.set(false) // true to disable instrumentation and all Kover tasks in this project
@@ -63,7 +76,7 @@ kover {
     engine.set(JacocoEngine("0.8.8")) // change Coverage Engine
     filters { // common filters for all default Kover tasks
         classes { // common class filter for all default Kover tasks
-            includes += "smoothcrawler" // class inclusion rules
+            includes += smoothcrawlerPackage // class inclusion rules
 //            excludes += listOf("com.example.subpackage.*") // class exclusion rules
         }
     }
@@ -77,7 +90,7 @@ kover {
         reportFile.set(layout.buildDirectory.file("$buildDir/reports/kover/xml/result.xml")) // change report file name
         overrideFilters {
             classes { // override common class filter
-                includes += "smoothcrawler" // override class inclusion rules
+                includes += smoothcrawlerPackage // override class inclusion rules
 //                excludes += listOf("com.example2.subpackage.*") // override class exclusion rules
             }
         }
@@ -88,7 +101,7 @@ kover {
         reportDir.set(layout.buildDirectory.dir("$buildDir/reports/kover/html/html-result")) // change report directory
         overrideFilters {
             classes { // override common class filter
-                includes += "smoothcrawler" // class inclusion rules
+                includes += smoothcrawlerPackage // class inclusion rules
 //                excludes += listOf("com.example2.subpackage.*") // override class exclusion rules
             }
         }
@@ -102,8 +115,8 @@ kover {
             target = kotlinx.kover.api.VerificationTarget.ALL // specify by which entity the code for separate coverage evaluation will be grouped
 
             overrideClassFilter { // override common class filter
-                includes += "com.example.verify.*" // override class inclusion rules
-                excludes += listOf("com.example.verify.subpackage.*") // override class exclusion rules
+                includes += smoothcrawlerPackage // override class inclusion rules
+//                excludes += listOf("com.example.verify.subpackage.*") // override class exclusion rules
             }
 
             bound { // add rule bound
