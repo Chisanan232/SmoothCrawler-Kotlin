@@ -14,7 +14,10 @@ plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     kotlin("jvm") version "1.7.10"
 
+    // Apply Kover to activate feature about testing coverage
     id("org.jetbrains.kotlinx.kover") version "0.6.0-Beta"
+    // Apply Dokka to activate feature about documentation generation
+    id("org.jetbrains.dokka") version "1.7.10"
 
     // Apply the java-library plugin for API and implementation separation.
     java
@@ -60,6 +63,9 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.23.1")
     testImplementation("io.mockk:mockk:1.12.7")
     testImplementation("org.jetbrains.kotlinx:kover:0.6.0-Beta")
+
+    // For Kotlin documentation generation
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.10")
 }
 
 kover {
