@@ -8,6 +8,6 @@ interface BaseHttpResponseParser {
     /**
      * Content ...
      */
-    fun <T> parseContent(response: T): T
+    fun parseContent(response: Any): Any
 
 }

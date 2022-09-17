@@ -16,8 +16,8 @@ abstract class BaseCrawler(private val factory: BaseFactory? = null) {
      * @return the running result which has been handled.
      */
     //TODO: Please consider about the generic data type. It should be more clear that what data it could receive and return
-    open fun <T> crawl(url: String): T {
-        val response: T = sendHttpRequest(url = url)
+    open fun crawl(url: String): Any {
+        val response: Any = sendHttpRequest(url = url)
         return parseHttpResponse(response = response)
     }
 
@@ -26,7 +26,7 @@ abstract class BaseCrawler(private val factory: BaseFactory? = null) {
      * @param url the target URL to crawl.
      * @return the HTTP response which is running result of crawling.
      */
-    open fun <T> sendHttpRequest(url: String): T {
+    open fun sendHttpRequest(url: String): Any {
         return this.factory!!.httpRequest.request(url = url)
     }
 
@@ -35,7 +35,7 @@ abstract class BaseCrawler(private val factory: BaseFactory? = null) {
      * @param response the target URL to crawl.
      * @return the parsed data from HTTP response.
      */
-    open fun <T> parseHttpResponse(response: T): T {
+    open fun parseHttpResponse(response: Any): Any {
         return this.factory!!.httpResponseParser.parseContent(response = response)
     }
 
@@ -44,7 +44,7 @@ abstract class BaseCrawler(private val factory: BaseFactory? = null) {
      * @param parsedResponse the data which has been parsed from HTTP response.
      * @return the final data.
      */
-    open fun <T> handleData(parsedResponse: T): T {
+    open fun handleData(parsedResponse: Any): Any {
         return this.factory!!.dataHandler.process(data = parsedResponse)
     }
 
