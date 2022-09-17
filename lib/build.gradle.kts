@@ -38,7 +38,10 @@ sourceSets {
 
     test {
         java.srcDir(listOf(
+            // Unit test
             "smoothcrawler/test/kotlin",
+            // Integration test
+            "smoothcrawler/test-integration/kotlin",
         ))
     }
 }
@@ -62,7 +65,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.assertj:assertj-core:3.23.1")
     testImplementation("io.mockk:mockk:1.12.7")
-    testImplementation("org.jetbrains.kotlinx:kover:0.6.0-Beta")
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation("org.json:json:20220320")
+    // For testing code coverage of source code
+    testImplementation("org.jetbrains.kotlinx:kover:0.6.0")
 
     // For Kotlin documentation generation
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.10")
