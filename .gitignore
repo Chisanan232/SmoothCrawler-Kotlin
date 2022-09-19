@@ -14,3 +14,6 @@ jdks
 kotlin-profile
 native
 ./wrapper
+
+# Ignore the cache of Python code
+__pycache__
