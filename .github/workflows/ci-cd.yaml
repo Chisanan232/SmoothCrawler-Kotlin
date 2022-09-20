@@ -64,7 +64,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build the source code and run test
-        run: ./gradlew --no-build-cache test -x koverReport --stacktrace --console 'verbose'
+        run: ./gradlew --no-build-cache build -x koverReport --stacktrace --console 'verbose'
 
       - name: Rename the file name
         run: mv ./lib/build/reports/kover/xml/result.xml ./lib/build/reports/kover/xml/coverage_unit-test.xml
