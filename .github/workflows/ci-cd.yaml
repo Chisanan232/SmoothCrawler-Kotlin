@@ -112,6 +112,7 @@ jobs:
   push_code:
 #    name: Push compiled code to maven server
     needs: [codecov_finish, codacy_finish]
+    runs-on: ubuntu-latest
     steps:
       - name: git clone project from GitHub
         uses: actions/checkout@v2
