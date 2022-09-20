@@ -108,7 +108,7 @@ jobs:
       upload-to-codacy: true
 
 
-  //TODO: Implement the pushing process
+  #TODO: Implement the pushing process
   push_code:
 #    name: Push compiled code to maven server
     needs: [codecov_finish, codacy_finish]
