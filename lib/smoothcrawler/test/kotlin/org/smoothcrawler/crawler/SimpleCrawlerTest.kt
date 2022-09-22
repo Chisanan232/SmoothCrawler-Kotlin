@@ -30,7 +30,7 @@ class SimpleCrawlerTest {
     fun testRunWithOneURL() {
         mockFactoryFunctions()
 
-        underTest.run<Any>("test url")
+        underTest.run("test url")
 
         verifyFunctionRunningHistory(1)
     }
@@ -40,32 +40,32 @@ class SimpleCrawlerTest {
         mockFactoryFunctions()
 
         val urls = listOf("test url 1", "test url 2", "test url 3")
-        underTest.run<Any>(urls)
+        underTest.run(urls)
 
         verifyFunctionRunningHistory(urls.size)
     }
 
     private fun mockFactoryFunctions() {
         every {
-            crawlerFactory.httpRequest.request<Any>(any())
+            crawlerFactory.httpRequest.request(any())
         } returns Any()
         every {
-            crawlerFactory.httpResponseParser.parseContent<Any>(any())
+            crawlerFactory.httpResponseParser.parseContent(any())
         } returns Any()
         every {
-            crawlerFactory.dataHandler.process<Any>(any())
+            crawlerFactory.dataHandler.process(any())
         } returns Any()
     }
 
     private fun verifyFunctionRunningHistory(exactlyTimes: Int) {
         verify (exactly = exactlyTimes) {
-            crawlerFactory.httpRequest.request<Any>(any())
+            crawlerFactory.httpRequest.request(any())
         }
         verify (exactly = exactlyTimes) {
-            crawlerFactory.httpResponseParser.parseContent<Any>(any())
+            crawlerFactory.httpResponseParser.parseContent(any())
         }
         verify (exactly = exactlyTimes) {
-            crawlerFactory.dataHandler.process<Any>(any())
+            crawlerFactory.dataHandler.process(any())
         }
     }
 

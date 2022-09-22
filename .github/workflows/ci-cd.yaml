@@ -36,6 +36,23 @@ jobs:
       - name: git clone project from GitHub
         uses: actions/checkout@v2
 
+      - name: Install Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U pip
+          pip install -U flask gunicorn
+
+      - name: Setup and run HTTP server for testing
+        run: gunicorn --bind 0.0.0.0:12345 'lib.smoothcrawler.test-integration.python._http_server.app:app' --daemon
+
+      - name: Test to send HTTP request to sample HTTP server
+        run: curl "http://127.0.0.1:12345/exchangeReport/STOCK_DAY?response=json&date=20170101&stockNo=2331"
+
       - name: Build Java runtime environment
         uses: actions/setup-java@v2
         with:
@@ -89,4 +106,20 @@ jobs:
     with:
       test_type: unit-test
       upload-to-codacy: true
+
+
+  #TODO: Implement the pushing process
+  push_code:
+#    name: Push compiled code to maven server
+    needs: [codecov_finish, codacy_finish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone project from GitHub
+        uses: actions/checkout@v2
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Push and upload compiles source code to Maven server
+        run: echo "Need to implement here step."
 
