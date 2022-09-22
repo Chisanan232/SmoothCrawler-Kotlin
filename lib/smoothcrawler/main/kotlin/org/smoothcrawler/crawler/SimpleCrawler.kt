@@ -16,8 +16,8 @@ class SimpleCrawler(factory: BaseFactory? = null) : BaseCrawler(factory) {
      * @param url the target URL to crawl.
      * @return the final data.
      */
-    fun <T> run(url: String): T {
-        val parsedData = crawl<T>(url = url)
+    fun run(url: String): Any {
+        val parsedData = crawl(url = url)
         return handleData(parsedResponse = parsedData)
     }
 
@@ -26,9 +26,9 @@ class SimpleCrawler(factory: BaseFactory? = null) : BaseCrawler(factory) {
      * @param url the target URL to crawl.
      * @return the final data.
      */
-    fun <T> run(url: List<String>): List<T> {
+    fun run(url: List<String>): List<Any> {
         return url.map {
-            val parsedData: T = crawl(url = it)
+            val parsedData = crawl(url = it)
             handleData(parsedResponse = parsedData)
         }
     }

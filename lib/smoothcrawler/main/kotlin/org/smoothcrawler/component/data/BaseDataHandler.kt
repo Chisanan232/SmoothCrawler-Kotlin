@@ -8,6 +8,6 @@ interface BaseDataHandler {
     /**
      * Content ...
      */
-    fun <T> process(data: T): T
+    fun process(data: Any): Any
 
 }
